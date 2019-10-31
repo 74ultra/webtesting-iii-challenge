@@ -26,7 +26,7 @@ describe('<Controls />', () => {
         expect(wrapper.getByText('Unlocked'))
     })
 
-    test('Clicking Close Gate then Lock Gate will change Unlocked to Locked', () => {
+    test('Clicking Close Gate then Lock Gate will change Unlocked to Locked and prevent gate from being opened', () => {
         const wrapper = rtl.render(<Dashboard />)
         const closeGate = wrapper.getByText('Close Gate')
 
@@ -40,8 +40,25 @@ describe('<Controls />', () => {
             rtl.fireEvent.click(lockGate)
         })
 
+        rtl.act(() => {
+            rtl.fireEvent.click(closeGate)
+        })
+
         expect(wrapper.getByText('Locked'))
+        expect(wrapper.getByText('Closed'))
+
 
     })
+
+    test('Close toggle button is disabled if gate is locked', () => {
+        const wrapper = rtl.render(<Controls locked={true} />);
+        expect(wrapper.getByTestId('closeButton')).toBeDisabled();
+    })
+
+    test('Locked toggle button is disabled if gate is open', () => {
+        const wrapper = rtl.render(<Controls closed={false} />)
+        expect(wrapper.getByTestId('lockButton')).toBeDisabled();
+    })
+
 })
 
