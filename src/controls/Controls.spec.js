@@ -26,7 +26,7 @@ describe('<Controls />', () => {
         expect(wrapper.getByText('Unlocked'))
     })
 
-    test('Clicking Close Gate then Lock Gate will change Unlocked to Locked and prevent gate from being opened', () => {
+    test('Clicking Lock Gate after clicking Close Gate will change Unlocked to Locked and prevent gate from being opened', () => {
         const wrapper = rtl.render(<Dashboard />)
         const closeGate = wrapper.getByText('Close Gate')
 

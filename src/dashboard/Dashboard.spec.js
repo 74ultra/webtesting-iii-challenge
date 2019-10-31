@@ -5,6 +5,12 @@ import Dashboard from './Dashboard.js';
 afterEach(rtl.cleanup);
 
 describe('<Dashboard />', () => {
+    test('<Dashboard /> snapshot', () => {
+        const wrapper = rtl.render(<Dashboard />)
+        expect(wrapper.asFragment()).toMatchSnapshot()
+    })
+    
+    
     test('Inital Display defaults to unlocked and open', () => {
         const wrapper = rtl.render(<Dashboard />);
         expect(wrapper.getByText(/unlocked/i))
@@ -17,4 +23,6 @@ describe('<Dashboard />', () => {
         expect(wrapper.getByText(/lock gate/i))
         expect(wrapper.getByText(/close gate/i))
     })
+
+
 })
